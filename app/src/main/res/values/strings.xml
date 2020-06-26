@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">WatchList</string>
+    <string name="watchlist">Watch List</string>
+    <string name="subtitle">A tracker for your favorite shows</string>
+    <string name="startbutton">Get Started!</string>
+    <string name="show_title">Show Name</string>
+    <string name="epwatched">Episodes Watched</string>
+    <string name="eptotal">Total Episodes</string>
+
+    <string-array name="rating">
+        <item>- Rating -</item>
+        <item>1/5</item>
+        <item>2/5</item>
+        <item>3/5</item>
+        <item>4/5</item>
+        <item>5/5</item>
+
+    </string-array>
+    <string name="add">Add</string>
+    <string name="nodata">Nothing to show yet!</string>
+    <string name="eps">Episodes\nwatched</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+</resources>

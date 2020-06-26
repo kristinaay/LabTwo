@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/dataLayout">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="161dp"
+            android:background="#A8EABDDA"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/show_name_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Title 1"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:fontFamily="casual"
+                app:layout_constraintBottom_toTopOf="@+id/ratings_txt"
+                app:layout_constraintStart_toEndOf="@+id/imageButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/ratings_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="Rating"
+                app:fontFamily="casual"
+                app:layout_constraintStart_toEndOf="@+id/imageButton"
+                app:layout_constraintTop_toBottomOf="@+id/show_name_txt" />
+
+            <TextView
+                android:id="@+id/ep_watched_txt"
+                android:layout_width="19dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginBottom="8dp"
+                android:text="15"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:fontFamily="casual"
+                app:layout_constraintBottom_toTopOf="@+id/watched_txt"
+                app:layout_constraintEnd_toStartOf="@+id/division_txt" />
+
+            <TextView
+                android:id="@+id/division_txt"
+                android:layout_width="7dp"
+                android:layout_height="19dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginBottom="8dp"
+                android:text="/"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toTopOf="@+id/watched_txt"
+                app:layout_constraintEnd_toStartOf="@+id/ep_total_txt" />
+
+            <TextView
+                android:id="@+id/ep_total_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="8dp"
+                android:text="24"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:fontFamily="casual"
+                app:layout_constraintBottom_toTopOf="@+id/watched_txt"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/watched_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="right"
+                android:text="@string/eps"
+                android:textSize="14sp"
+                app:fontFamily="casual"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="132dp"
+                android:layout_height="134dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.666"
+                app:srcCompat="@drawable/ic_add_foreground"
+                tools:ignore="VectorDrawableCompat" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
