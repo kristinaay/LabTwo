@@ -3,14 +3,28 @@ package com.example.labtwo;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,7 +36,12 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+
+import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 
 public class DataPage extends AppCompatActivity {
@@ -34,6 +53,16 @@ public class DataPage extends AppCompatActivity {
     DatabaseHelper db;
     ArrayList<String> id, show_name, ep_watched, ep_total, ratings;
     CustomAdapter customAdapter;
+
+    ImageButton header;
+    private static final int RESULT_LOAD_IMAGE = 2;
+    Uri image = null;
+
+    SharedPreferences myPrefs;
+    SharedPreferences.Editor editor;
+
+    Boolean check;
+    String string;
 
 
 
@@ -61,13 +90,64 @@ public class DataPage extends AppCompatActivity {
         ep_watched = new ArrayList<>();
         ep_total = new ArrayList<>();
         ratings = new ArrayList<>();
+        header = findViewById(R.id.imageButton2);
+
+
+
+
 
         storeDataInArrays();
+
+        myPrefs = getApplicationContext().getSharedPreferences("MyPref", 0);
+        editor = myPrefs.edit();
+
+
+
+        if (ContextCompat.checkSelfPermission(
+                DataPage.this,  Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                PackageManager.PERMISSION_GRANTED) {
+
+
+
+            String string = myPrefs.getString("image", null);
+            check = myPrefs.contains("image");
+            if (check) {
+                //imageView.setImageURI(uri);
+
+
+                header.setImageURI(Uri.parse(string));
+            }
+        }
 
         customAdapter = new CustomAdapter(DataPage.this, this, id, show_name, ep_watched, ep_total, ratings);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(DataPage.this));
+
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //imageButton.setImageResource(R.drawable.bg1);
+                if (ContextCompat.checkSelfPermission(
+                        DataPage.this,  Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                        PackageManager.PERMISSION_GRANTED) {
+
+
+                    Intent gallery = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(gallery, RESULT_LOAD_IMAGE);
+                } else {
+                    // You can directly ask for the permission.
+                    ActivityCompat.requestPermissions(DataPage.this,
+                            new String[] { Manifest.permission.READ_EXTERNAL_STORAGE},
+                            1);
+                }
+
+
+
+            }
+        });
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -76,11 +156,16 @@ public class DataPage extends AppCompatActivity {
             recreate();
         }
         if(requestCode == 2 && resultCode == RESULT_OK && data != null) {
-            Uri image = data.getData();
-            CustomAdapter.getIB().setImageURI(image);
+            image = data.getData();
+            header.setImageURI(image);
+            editor.putString("image", image.toString());
+            editor.commit();
+
+
         }
 
     }
+
 
     void storeDataInArrays(){
         Cursor cursor = db.readAllData();

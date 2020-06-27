@@ -20,7 +20,8 @@
         </activity>
 
         <activity android:name=".DataPage"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:exported="true"/>
 
         <activity android:name=".AddPage"
         android:parentActivityName=".DataPage"/>

@@ -1,10 +1,13 @@
 package com.example.labtwo;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +20,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -25,8 +30,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     private Context context;
     private Activity activity;
     private ArrayList id, show_name, ep_watched, ep_total, ratings;
-    public static ImageButton imageButton;
-    private static final int RESULT_LOAD_IMAGE = 2;
+
 
     CustomAdapter(Activity activity, Context context, ArrayList id, ArrayList show_name, ArrayList ep_watched,
                   ArrayList ep_total, ArrayList ratings){
@@ -40,16 +44,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     }
 
-    public static ImageButton getIB() {
-        return imageButton;
-    }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.one_row, parent, false);
-        imageButton = view.findViewById(R.id.imageButton);
         return new MyViewHolder(view);
 
 
@@ -66,15 +66,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.ep_watched_txt.setText(String.valueOf(ep_watched.get(position)));
         holder.ep_total_txt.setText(String.valueOf(ep_total.get(position)));
         holder.ratings_txt.setText(String.valueOf(ratings.get(position)));
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    //imageButton.setImageResource(R.drawable.bg1);
-                    Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    ((Activity) context).startActivityForResult(gallery, RESULT_LOAD_IMAGE);
-
-            }
-        });
         //to update the information
         holder.dataLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,10 +82,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("MyAdapter", "onActivityResult");
-
-    }
 
 
     @Override
